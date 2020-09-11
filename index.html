@@ -16,18 +16,22 @@
                 --button-text-hover: #000;
                 --modal-background: var(--background);
                 --modal-text: var(--text);
-                --primary-color: #f5b133;
+                --primary-color: green;
             }
             html.night {
                     --background: #000;
                     --text: #fff;
                     --button-text-hover: #000;
+                    --primary-color: #f5b133;
+
             }
             @media (prefers-color-scheme: dark) {
                 :root {
                     --background: #000;
                     --text: #fff;
                     --button-text-hover: #000;
+                    --primary-color: #f5b133;
+
                 }
             }
 
@@ -140,7 +144,7 @@
                 transform: scaleX(0);
                 will-change: transform;
                 transform-origin: 0%;
-                background: #f5b133;
+                background: green;
                 background: var(--primary-color);
                 transition: 0.2s background, 0.1s transform;
             }
@@ -199,7 +203,7 @@
                 position: relative; 
                 height: 18px; 
                 width: 18px; 
-                border: 3px solid #f5b133;
+                border: 3px solid green;
                 border: 3px solid var(--primary-color); 
                 display: inline-block; 
                 border-radius: 50%; 
@@ -212,7 +216,7 @@
                 width: 50%; 
                 display: block; 
                 position: absolute; 
-                background: #f5b133;
+                background: green;
                 background: var(--primary-color); 
                 left: 50%; 
                 top: 50%; 
