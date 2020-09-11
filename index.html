@@ -107,6 +107,7 @@
                 margin: 0 auto;
                 display: flex;
             }
+            #logo { max-width: 200px; }
             #select-location {
                 color: red;
                 margin-bottom: 5px;
@@ -340,9 +341,9 @@
     <body>
         <main>
             <section>
-                <picture>
-                    <source media="(max-width:640px)" srcset="./assets/logo-320.png">
-                    <source media="(min-width:641px)" srcset="./assets/logo-160.png">
+                <picture id="logo">
+                    <source media="(max-width:640px)" srcset="./assets/logo-160.png">
+                    <source media="(min-width:641px)" srcset="./assets/logo-320.png">
                     <img src="./assets/logo-320.png" alt="Om Snacks">
                 </picture>
                 <h1 style="margin-top: 1rem;">Pizza, Pasta, Sandwich, Burger, Pani Puri, Party Orders</h1>
