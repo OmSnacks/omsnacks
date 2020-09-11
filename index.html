@@ -10,6 +10,80 @@
         <!-- <link href="https://fonts.googleapis.com/css2?family=Neucha&family=Roboto:wght@400;700&display=swap" rel="stylesheet"> -->
         <link href="https://fonts.googleapis.com/css2?family=Neucha&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <style>
+            :root, html.day {
+                --background: #fff;
+                --text: #000;
+                --button-primary-hover: yellow;
+                --button-text-hover: #000;
+                --modal-background: var(--background);
+                --modal-text: var(--text);
+                --green: green;
+            }
+            html.night {
+                    --background: #000;
+                    --text: #fff;
+                    --button-primary-hover: yellow;
+                    --button-text-hover: #000;
+                    --green: #3CE75B;
+            }
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --background: #000;
+                    --text: #fff;
+                    --button-primary-hover: yellow;
+                    --button-text-hover: #000;
+                    --green: #3CE75B;
+                }
+            }
+
+            #night-mode-switch {
+                position: fixed;
+                top: 1.5rem;
+                right: 1.5rem;
+            }
+            #night-mode-switch input {
+                position: absolute;
+                opacity: 0;
+            }
+            #night-mode-switch input ~ label {
+                line-height: 2rem;
+                width: 2rem;
+                border-radius: 100%;
+                display: inline-block;
+                text-indent: 1000px;
+                color: rgba(0,0,0,0);
+                cursor: pointer;
+            }
+
+            #night-mode-switch input ~ label.on {
+                --eclipse: 90%;
+                background: #fff;
+                /* box-shadow: 0 0 24px 0 #ccc, 0 0 24px 0 #999; */
+            }
+
+            #night-mode-switch input ~ label.on:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: -3px;
+                right: -3px;
+                height: var(--eclipse);
+                width: var(--eclipse);
+                background: var(--background);
+                transition: 0.2s background;
+                border-radius: 50%;
+                --eclipse: 90%;
+                box-shadow: 4px -4px 3px -1px #ccc inset;
+            }
+            #night-mode-switch input ~ label.off {
+                background: yellow;
+                box-shadow: 0 0 8px 0 yellow, 0 0 4px 0 red;
+            }
+
+            #night-mode-switch input:checked ~ label.off,
+            #night-mode-switch input:not(:checked) ~ label.on { display: none; }
+        </style>
+        <style>
             * {
                 box-sizing: border-box;
             }
@@ -18,7 +92,12 @@
                 padding: 0;
                 font-size: 16px;
                 font-family: 'Open Sans', sans-serif;
-                line-height: 1.3;
+                line-height: 1.4;
+                background: #fff;
+                background: var(--background);
+                color: #000;
+                color: var(--text);
+                transition: 0.2s background;
             }
             h1,h2,h3,h4,h5 {  font-family: 'Neucha', cursive; }
             .text-2 {font-family: 'Neucha', cursive; font-size: 1.2em; }
@@ -27,9 +106,7 @@
                 max-width: 1280px;
                 min-height: 100vh;
                 margin: 0 auto;
-                height: 100%;
                 display: flex;
-                align-items: center;
             }
             #select-location {
                 color: red;
@@ -39,7 +116,10 @@
                 display: none;
             }
             form { margin-bottom: 16px; }
-            a[href^="tel:"] { color: green; }
+            a[href^="tel:"] {
+                color: green;
+                color: var(--green);
+            }
             a.btn {
                 padding: 10px 15px;
                 border-radius: 3px;
@@ -50,28 +130,47 @@
                 overflow: hidden;
                 z-index: 1;
             }
-
-            a.btn:after {
-                content: '';
+            a.btn:before,
+            a.btn:after  {
                 display: block;
                 position: absolute;
                 top: 0;
                 left: 0;
                 right: 0;
                 bottom: 0;
+            }
+
+            a.btn:before {
+                content: '';
                 transform: scaleX(0);
                 will-change: transform;
-                z-index: -1;
-                transition: 0.1s transform;
                 transform-origin: 0%;
                 background: yellow;
+                background: var(--button-primary-hover);
+                transition: 0.2s background, 0.1s transform;
+            }
+            a.btn:hover:before {
+                transform: scaleX(1);
+                transition: 0.2s background, 0.3s transform;
+            }
+            a.btn:after {
+                content: '';
+                content: attr(data-text);
+                color: #000;
+                color: var(--button-text-hover);
+                clip-path: content-box;
+                white-space: nowrap;
+                padding: 10px 0;
+                overflow: hidden;
+                transition: 0.2s color, 0.1s padding, 0.1s right;
+                will-change: right;
+                right: 100%;
             }
             a.btn:hover:after {
-                transform: scaleX(1);
-                transition: 0.3s transform;
-
+                padding: 10px 15px;
+                transition: 0.2s color, 0.1s padding, 0.3s right;
+                right: 0;
             }
-
             ul.phones { margin-bottom: 1rem; }
             ul.phones li {
                 vertical-align: baseline;
@@ -94,7 +193,7 @@
             .radio label { 
                 display: inline-flex; 
                 align-items: center; 
-                color: black; 
+                color: inherit; 
             }
     
             .radio input[type=radio] { 
@@ -105,7 +204,8 @@
                 position: relative; 
                 height: 18px; 
                 width: 18px; 
-                border: 3px solid #3CE75B; 
+                border: 3px solid green; 
+                border: 3px solid var(--green); 
                 display: inline-block; 
                 border-radius: 50%; 
                 margin-right: 8px;
@@ -131,19 +231,22 @@
                 transition: 0.3s transform;
             }
 
+            @media screen and (min-width: 768px ){
+                section {
+                    margin: auto 0;
+                }
+            }
             @media screen and (min-width: 1024px){
                 section {
                     max-width: 60%;
                 }
             }
-            @media screen and (max-width: 991px ){
-                main {
-                    align-items: flex-start;
-                }
-            }
         </style>
         <style>
             dialog {
+                background: var(--modal-background);
+                color: var(--modal-text);
+                transition: 0.2s background;
                 display: flex !important;
                 flex-direction: column;
                 visibility: hidden;
@@ -201,14 +304,17 @@
                 background: #000;
                 color: #fff;
                 font-size: 1.5rem;
+                z-index: 1;
             }
             dialog h3 {
+                background: var(--modal-background);
+                transition: 0.2s background;
+                color: inherit;
                 position: sticky;
                 top: -1rem;
-                margin: 0;
+                margin: -1rem 0 0;
                 padding: 1rem 0;
                 z-index: 1;
-                background: #fff;
             }
             picture, img {
                 max-width: 100%;
@@ -222,7 +328,12 @@
     <body>
         <main>
             <section>
-                <h1 style="margin-top: 0;">Om Snacks</h1>
+                <picture>
+                    <source media="(max-width:640px)" srcset="./assets/logo-320.png">
+                    <source media="(min-width:641px)" srcset="./assets/logo-160.png">
+                    <img src="./assets/logo-320.png" alt="Om Snacks">
+                </picture>
+                <h1 style="margin-top: 1rem;">Pizza, Pasta, Sandwich, Burger, Pani Puri, Party Orders</h1>
                 <p>
                     Destination for the biggest sandwich in Mumbai.
                     <br />Treat yourself with the cheesy goodness of our <span class="text-2">sandwiches, pizzas, pizza shots, pasta and frankies/wraps</span>.
@@ -240,8 +351,8 @@
                         <span class="radio"><input type="radio" name="location" value="andheri" id="andheri" /><label for="andheri"><span class="circle"></span> Andheri</label></span>
                         <span class="radio"><input type="radio" name="location" value="goregaon" id="goregaon" /><label for="goregaon"><span class="circle"></span> Goregaon</label></span>
                     </form>
-                    <a href="#" class="btn" id="order-now">Order Now</a>
-                    <a href="#" class="btn" id="show-menu">Menu</a>
+                    <a href="#" class="btn" id="order-now" data-text="Order Now">Order Now</a>
+                    <a href="#" class="btn" id="show-menu" data-text="Menu">Menu</a>
                 </div>
             </section>
         </main>
@@ -283,6 +394,30 @@
                 <img src="./assets/goregaon-menu/oms-g2-2020-2800.jpg" alt="Om Snacks Menu Goregaon 2">
             </picture>
         </dialog>
+        <div id="night-mode-switch">
+            <input type="checkbox" id="night-mode-checkbox" />
+            <label for="night-mode-checkbox" class="on"> On </label>
+            <label for="night-mode-checkbox" class="off"> Off </label>
+        </div>
+        <script>
+            (function(func) {
+                const root = document.querySelector('html');
+                const h1 = document.querySelector('h1');
+                const nightModeSwitch = document.querySelector('#night-mode-checkbox');
+                const classes = { true: 'night', false: 'day' }
+                h1.innerText = 'Fusion, food, fun';
+
+                if (func) { 
+                    var nightMode = func('(prefers-color-scheme: dark)');
+                    nightModeSwitch.checked = nightMode.matches;
+                    root.classList.add(classes[nightMode.matches]);
+                }
+
+                nightModeSwitch.onchange = function() {
+                    root.classList.replace(classes[!this.checked], classes[this.checked]);
+                };
+            })(window.matchMedia);
+        </script>
         <script src="./lib/dialog-polyfill.js"></script>
         <script>
             (function() {
@@ -318,7 +453,7 @@
                     const button = document.createElement('button');
                     button.classList.add('dialog-close')
                     button.innerHTML = '&times;';
-                    button.addEventListener('click', () => dialog.close());
+                    button.addEventListener('click', function() { dialog.close() });
                     dialog.appendChild(button);
 
                     const updateBackdrop = (ev) => {
