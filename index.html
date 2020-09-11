@@ -418,23 +418,32 @@
             <label for="night-mode-checkbox" class="off"> Off </label>
         </div>
         <script>
-            (function(func) {
+            (function(media, storage) {
                 const root = document.querySelector('html');
                 const h1 = document.querySelector('h1');
                 const nightModeSwitch = document.querySelector('#night-mode-checkbox');
                 const classes = { true: 'night', false: 'day' }
                 h1.innerText = 'Fusion, food, fun';
-
-                if (func) { 
-                    var nightMode = func('(prefers-color-scheme: dark)');
+                nightModeSwitch.checked = true;
+                if (media) { 
+                    nightMode = media('(prefers-color-scheme: dark)');
                     nightModeSwitch.checked = nightMode.matches;
-                    root.classList.add(classes[nightMode.matches]);
                 }
 
+                if (storage) {
+                    if (!classes[storage.getItem('nightMode')])  {
+                        storage.setItem('nightMode', nightModeSwitch.checked);
+                    } else {
+                        nightModeSwitch.checked = storage.getItem('nightMode') === 'true';
+                    }
+                }
+
+                root.classList.add(classes[nightModeSwitch.checked]);
                 nightModeSwitch.onchange = function() {
+                    storage.setItem('nightMode', this.checked);
                     root.classList.replace(classes[!this.checked], classes[this.checked]);
                 };
-            })(window.matchMedia);
+            })(matchMedia, localStorage);
         </script>
         <script src="./lib/dialog-polyfill.js"></script>
         <script>
