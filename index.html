@@ -13,7 +13,7 @@
             :root, html.day {
                 --background: #fff;
                 --text: #000;
-                --button-text-hover: #000;
+                --button-text-hover: #fff;
                 --modal-background: var(--background);
                 --modal-text: var(--text);
                 --primary-color: green;
@@ -23,7 +23,6 @@
                     --text: #fff;
                     --button-text-hover: #000;
                     --primary-color: #f5b133;
-
             }
             @media (prefers-color-scheme: dark) {
                 :root {
@@ -31,7 +30,6 @@
                     --text: #fff;
                     --button-text-hover: #000;
                     --primary-color: #f5b133;
-
                 }
             }
 
@@ -96,8 +94,14 @@
                 background: var(--background);
                 color: #000;
                 color: var(--text);
-                transition: 0.2s background;
+                filter: blur(0px);
+                transition: 0.2s background, 0.3s filter;
             }
+
+            body.show-dialog {
+                filter: blur(5px);
+            }
+
             h1,h2,h3,h4,h5 {  font-family: 'Neucha', cursive; }
             .text-2 {font-family: 'Neucha', cursive; font-size: 1.2em; }
             main {
@@ -245,6 +249,7 @@
         </style>
         <style>
             dialog {
+                filter: none;
                 background: var(--modal-background);
                 color: var(--modal-text);
                 transition: 0.2s background;
@@ -260,7 +265,7 @@
                 height: auto;
                 padding: 0;
                 border: 1px solid #555;
-                border-radius: 3px;
+                border-radius: 5px;
             }
             dialog::backdrop {
                 background: rgba(0,0,0,0.7);
@@ -280,8 +285,8 @@
                 width: 90vw;
             }
             dialog.wide {
-                left: 5vh;
-                right: 5vh;
+                left: 2rem;
+                right: 2rem;
                 opacity: 0;
                 max-height: 90vh;
                 transition: 0.2s all;
@@ -460,6 +465,7 @@
 
                 var dialogMap = {};
                 
+                const body = document.querySelector('body');
                 const showMenu = document.querySelector('#show-menu');
                 const orderNow = document.querySelector('#order-now');
                 const inputs = document.querySelectorAll('[name="location"]');
@@ -487,6 +493,24 @@
                     button.innerHTML = '&times;';
                     button.addEventListener('click', function() { dialog.close() });
                     dialog.appendChild(button);
+
+                    const showModal = dialog.showModal;
+                    dialog.showModal = function() {
+                        body.classList.add('show-dialog');
+                        showModal.call(this);
+                    };
+
+                    const show = dialog.show;
+                    dialog.show = function() {
+                        body.classList.add('show-dialog');
+                        show.call(this);
+                    };
+
+                    const close = dialog.close;
+                    dialog.close = function() {
+                        body.classList.remove('show-dialog');
+                        close.call(this);
+                    };
 
                     const updateBackdrop = (ev) => {
                         if (ev && ev.target !== dialog) {
