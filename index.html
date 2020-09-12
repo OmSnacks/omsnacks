@@ -470,7 +470,7 @@
             </div>
         </dialog>
         <script>
-            (function(window) {
+            (function() {
                 const root = document.querySelector('html');
                 const h1 = document.querySelector('h1');
                 const nightModeSwitch = document.querySelector('#night-mode-checkbox');
@@ -482,20 +482,25 @@
                 //     nightModeSwitch.checked = nightMode.matches;
                 // }
 
-                if (window.localStorage) {
-                    if (!classes[storage.getItem('nightMode')])  {
-                        try { storage.setItem('nightMode', nightModeSwitch.checked); } catch(e) { console.error(e); }
+
+                try {
+                    if (!classes[localStorage.getItem('nightMode')])  {
+                        localStorage.setItem('nightMode', nightModeSwitch.checked);
                     } else {
-                        nightModeSwitch.checked = storage.getItem('nightMode') === 'true';
+                        nightModeSwitch.checked = localStorage.getItem('nightMode') === 'true';
                     }
+
+                    nightModeSwitch.onchange = function() {
+                        localStorage.setItem('nightMode', this.checked);
+                        root.classList.replace(classes[!this.checked], classes[this.checked]);
+                    };
+                } catch(e) {
+                    console.error(e);
+                } finally {
+                    root.classList.add(classes[nightModeSwitch.checked]);
                 }
 
-                root.classList.add(classes[nightModeSwitch.checked]);
-                nightModeSwitch.onchange = function() {
-                    storage.setItem('nightMode', this.checked);
-                    root.classList.replace(classes[!this.checked], classes[this.checked]);
-                };
-            })(window);
+            })();
         </script>
         <script src="./lib/dialog-polyfill.js"></script>
         <script src="./lib/view-bigimg.js"></script>
