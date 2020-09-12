@@ -461,10 +461,10 @@
                 const classes = { true: 'night', false: 'day' }
                 h1.innerText = 'Fusion, food, fun';
                 nightModeSwitch.checked = true;
-                if (media) { 
-                    nightMode = media('(prefers-color-scheme: dark)');
-                    nightModeSwitch.checked = nightMode.matches;
-                }
+                // if (media) { 
+                //     nightMode = media('(prefers-color-scheme: dark)');
+                //     nightModeSwitch.checked = nightMode.matches;
+                // }
 
                 if (storage) {
                     if (!classes[storage.getItem('nightMode')])  {
