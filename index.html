@@ -47,7 +47,7 @@
                 width: 2rem;
                 border-radius: 100%;
                 display: inline-block;
-                text-indent: 1000px;
+                font-size: 0;
                 color: rgba(0,0,0,0);
                 cursor: pointer;
             }
@@ -79,6 +79,12 @@
 
             #night-mode-switch input:checked ~ label.off,
             #night-mode-switch input:not(:checked) ~ label.on { display: none; }
+            @media screen and (max-width: 767px) {
+                #night-mode-switch {
+                    top: auto;
+                    bottom: 1.5rem;
+                }
+            }
         </style>
         <style>
             * {
@@ -105,7 +111,7 @@
             h1,h2,h3,h4,h5 {  font-family: 'Neucha', cursive; }
             .text-2 {font-family: 'Neucha', cursive; font-size: 1.2em; }
             main {
-                padding: 40px;
+                padding: 25px;
                 max-width: 1280px;
                 min-height: 100vh;
                 margin: 0 auto;
@@ -237,6 +243,9 @@
             }
 
             @media screen and (min-width: 768px ){
+                main {
+                    padding: 40px;
+                }
                 section {
                     margin: auto 0;
                 }
