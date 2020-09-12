@@ -4,11 +4,13 @@
         <meta charset="UTF-8">
         <meta name="keywords" content="pizza, pasta, sandwich, the hulk sandwich, pav bhaji, fast food, burger, pizza shots" />
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <link rel="dns-prefetch" href="http://fonts.googleapis.com">
         <link href="./lib/normalize.css" type="text/css" rel="stylesheet" />
         <link href="./lib/reset.css" type="text/css" rel="stylesheet" />
         <link href="./lib/dialog-polyfill.css" type="text/css" rel="stylesheet" />
+        <link href="./lib/view-bigimg.css" type="text/css" rel="stylesheet" />
         <!-- <link href="https://fonts.googleapis.com/css2?family=Neucha&family=Roboto:wght@400;700&display=swap" rel="stylesheet"> -->
-        <link href="https://fonts.googleapis.com/css2?family=Neucha&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css2?family=Neucha&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <style>
             :root, html.day {
                 --background: #fff;
@@ -105,6 +107,19 @@
 
             body.show-dialog main{
                 filter: blur(5px);
+            }
+
+            .fade-dialog dialog[open],
+            .fade-dialog dialog + .backdrop {
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.2s opacity;
+            }
+
+            .fade-dialog dialog[open]::backdrop{
+                visibility: hidden;
+                opacity: 0;
+                transition: 0.2s opacity;
             }
 
             h1,h2,h3,h4,h5 {  font-family: 'Neucha', cursive; }
@@ -394,21 +409,21 @@
                 <span>📞 <a href="tel:+91 9702040201">9702 04 02 01</a></span>
             </div>
             <div class="dialog-content">
-                <picture>
+                <picture class="image-zoom" >
                     <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a1-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a1-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a1-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a1-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/andheri-menu/oms-a1-2020-2800.jpg">
-                    <img src="./assets/andheri-menu/oms-a1-2020-2800.jpg" alt="Om Snacks Menu Andheri 1">
+                    <img data-source="./assets/andheri-menu/oms-a1-2020-{size}.jpg" src="./assets/andheri-menu/oms-a1-2020-2800.jpg" alt="Om Snacks Menu Andheri 1">
                 </picture>
-                <picture>
+                <picture class="image-zoom" >
                     <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a2-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a2-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a2-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a2-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/andheri-menu/oms-a2-2020-2800.jpg">
-                    <img src="./assets/andheri-menu/oms-a2-2020-2800.jpg" alt="Om Snacks Menu Andheri 2">
+                    <img data-source="./assets/andheri-menu/oms-a2-2020-2800.jpg" src="./assets/andheri-menu/oms-a2-2020-2800.jpg" alt="Om Snacks Menu Andheri 2">
                 </picture>
             </div>
         </dialog>
@@ -418,21 +433,21 @@
                 <span>📞 <a href="tel:+91 8828220285">8828 22 02 85 / 86</a></span>
             </div>
             <div class="dialog-content">
-                <picture>
+                <picture class="image-zoom" >
                     <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g1-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g1-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g1-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g1-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/goregaon-menu/oms-g1-2020-2800.jpg">
-                    <img src="./assets/goregaon-menu/oms-g1-2020-2800.jpg" alt="Om Snacks Menu Goregaon 1">
+                    <img data-source="./assets/goregaon-menu/oms-g1-2020-{size}.jpg" src="./assets/goregaon-menu/oms-g1-2020-2800.jpg" alt="Om Snacks Menu Goregaon 1">
                 </picture>
-                <picture>
+                <picture class="image-zoom" >
                     <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g2-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g2-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g2-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g2-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/goregaon-menu/oms-g2-2020-2800.jpg">
-                    <img src="./assets/goregaon-menu/oms-g2-2020-2800.jpg" alt="Om Snacks Menu Goregaon 2">
+                    <img data-source="./assets/goregaon-menu/oms-g2-2020-{size}.jpg" src="./assets/goregaon-menu/oms-g2-2020-2800.jpg" alt="Om Snacks Menu Goregaon 2">
                 </picture>
             </div>
         </dialog>
@@ -465,6 +480,7 @@
             })(matchMedia, localStorage);
         </script>
         <script src="./lib/dialog-polyfill.js"></script>
+        <script src="./lib/view-bigimg.js"></script>
         <script>
             (function() {
                 var mappings = {
@@ -480,12 +496,13 @@
                 const inputs = document.querySelectorAll('[name="location"]');
                 const selectLocationError = document.querySelector('#select-location');
                 const dialogs = document.querySelectorAll('dialog');
+                const imagesToZoom = document.querySelectorAll('.image-zoom');
 
                 inputs.forEach((input) => {
                     input.onchange = function() {
                         selectLocationError.classList.remove('show');
                     }
-                })
+                });
 
                 dialogs.forEach((dialog) => {
                     dialogMap[dialog.id.replace('-menu', '')] = dialog
@@ -515,11 +532,13 @@
                         show.call(this);
                     };
 
-                    const close = dialog.close;
-                    dialog.close = function() {
+                    dialog.addEventListener('show', function() {
+                        body.classList.add('show-dialog');
+                    });
+
+                    dialog.addEventListener('close', function() {
                         body.classList.remove('show-dialog');
-                        close.call(this);
-                    };
+                    });
 
                     const updateBackdrop = (ev) => {
                         if (ev && ev.target !== dialog) {
@@ -528,6 +547,21 @@
                         dialog.close();
                     };
                     dialog.addEventListener('click', updateBackdrop);
+                })
+
+                var viewer = new ViewBigimg({
+                    beforeShow: function() {
+                        body.classList.add('fade-dialog');
+                    },
+                    onClose: function() {
+                        body.classList.remove('fade-dialog');
+                    }
+                });
+                body.addEventListener('click', function (e) {
+                    if (e.target.nodeName === 'IMG') {
+                        const source = e.target.currentSrc || e.target.src || '';
+                        viewer.show(source);
+                    }
                 })
 
                 function getLocation() {
