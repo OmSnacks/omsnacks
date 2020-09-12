@@ -561,7 +561,7 @@
                 });
                 body.addEventListener('click', function (e) {
                     if (e.target.nodeName === 'IMG') {
-                        const source = e.target.currentSrc || e.target.src || '';
+                        const source = e.target.src || '';
                         viewer.show(source);
                     }
                 })
