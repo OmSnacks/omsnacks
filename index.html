@@ -470,7 +470,7 @@
             </div>
         </dialog>
         <script>
-            (function(media, storage) {
+            (function(window) {
                 const root = document.querySelector('html');
                 const h1 = document.querySelector('h1');
                 const nightModeSwitch = document.querySelector('#night-mode-checkbox');
@@ -482,7 +482,7 @@
                 //     nightModeSwitch.checked = nightMode.matches;
                 // }
 
-                if (storage) {
+                if (window.localStorage) {
                     if (!classes[storage.getItem('nightMode')])  {
                         try { storage.setItem('nightMode', nightModeSwitch.checked); } catch(e) { console.error(e); }
                     } else {
@@ -495,7 +495,7 @@
                     storage.setItem('nightMode', this.checked);
                     root.classList.replace(classes[!this.checked], classes[this.checked]);
                 };
-            })(matchMedia, localStorage);
+            })(window);
         </script>
         <script src="./lib/dialog-polyfill.js"></script>
         <script src="./lib/view-bigimg.js"></script>
