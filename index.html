@@ -100,17 +100,17 @@
                 background: var(--background);
                 color: #000;
                 color: var(--text);
-                filter: blur(0px);
                 transition: 0.2s background, 0.3s filter;
             }
 
-            body.show-dialog {
+            body.show-dialog main{
                 filter: blur(5px);
             }
 
             h1,h2,h3,h4,h5 {  font-family: 'Neucha', cursive; }
             .text-2 {font-family: 'Neucha', cursive; font-size: 1.2em; }
             main {
+                filter: blur(0px);
                 padding: 25px;
                 max-width: 1280px;
                 min-height: 100vh;
@@ -382,6 +382,11 @@
                     <a href="#" class="btn" id="show-menu" data-text="Menu">Menu</a>
                 </div>
             </section>
+            <div id="night-mode-switch">
+                <input type="checkbox" id="night-mode-checkbox" />
+                <label for="night-mode-checkbox" class="on"> On </label>
+                <label for="night-mode-checkbox" class="off"> Off </label>
+            </div>
         </main>
         <dialog class="fixed wide" id="andheri-menu">
             <div class="dialog-header">
@@ -431,11 +436,6 @@
                 </picture>
             </div>
         </dialog>
-        <div id="night-mode-switch">
-            <input type="checkbox" id="night-mode-checkbox" />
-            <label for="night-mode-checkbox" class="on"> On </label>
-            <label for="night-mode-checkbox" class="off"> Off </label>
-        </div>
         <script>
             (function(media, storage) {
                 const root = document.querySelector('html');
