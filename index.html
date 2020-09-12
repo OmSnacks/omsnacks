@@ -103,6 +103,7 @@
                 color: #000;
                 color: var(--text);
                 transition: 0.2s background, 0.3s filter;
+                position: relative;
             }
             body:not(.show-dialog) .to-blur {
                 transition: 0.3s filter;
@@ -110,6 +111,21 @@
             }
             body.show-dialog .to-blur {
                 filter: blur(5px);
+            }
+
+            body:before {
+                content: '';
+                left: 0;
+                right: 0;
+                bottom: 0;
+                top: 0;
+                position: absolute;
+                background: url(./assets/bg.jpg);
+                pointer-events: none;
+                opacity: 0.02;
+            }
+            html.night body:before{
+                opacity: 0.05;
             }
 
             .fade-dialog dialog[open],
