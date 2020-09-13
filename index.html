@@ -145,11 +145,11 @@
                 transition: 0.2s background, 0.3s filter;
                 position: relative;
             }
-            body:not(.show-dialog) .to-blur {
+            body:not(.blur-body) .to-blur {
                 transition: 0.3s filter;
                 filter: blur(0px);
             }
-            body.show-dialog .to-blur {
+            body.blur-body .to-blur {
                 filter: blur(5px);
             }
 
