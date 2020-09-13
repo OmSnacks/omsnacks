@@ -11,7 +11,7 @@
         <link href="./lib/view-bigimg.css" type="text/css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Neucha&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
-        <style>
+        <style id="root-styles">
             :root, html.day {
                 --background: #fff;
                 --text: #000;
@@ -34,24 +34,39 @@
                     --primary-color: #f5b133;
                 }
             }
-
-            #night-mode-switch {
+        </style>
+        <style>
+            header {
                 position: fixed;
-                top: 1.5rem;
-                right: 1.5rem;
+                top: 0;
+                right: 0;
+                pointer-events: none;
+                z-index: 10;
+                display: flex;
+            }
+            header > * {
+                pointer-events: all;
+                margin: 1.5rem 1.5rem 0 0;
+            }
+        </style>
+        <style id="night-mode-styles">
+            #night-mode-switch {
+                position: relative;
             }
             #night-mode-switch input {
                 position: absolute;
                 opacity: 0;
             }
             #night-mode-switch input ~ label {
-                line-height: 2rem;
-                width: 2rem;
+                line-height: 1.8rem;
+                width: 1.8rem;
+                margin: .2rem .2rem 0 0 ;
                 border-radius: 100%;
                 display: inline-block;
                 font-size: 0;
                 color: rgba(0,0,0,0);
                 cursor: pointer;
+                position: relative;
             }
 
             #night-mode-switch input ~ label.on {
@@ -77,18 +92,43 @@
             #night-mode-switch input ~ label.off {
                 background: yellow;
                 box-shadow: 0 0 8px 0 yellow, 0 0 4px 0 red;
+                box-shadow: 0 0 0 2px var(--background);
             }
+
+            #night-mode-switch input ~ label.off span,
+            #night-mode-switch input ~ label.off span:before,
+            #night-mode-switch input ~ label.off span:after {
+                content: '';
+                display: block;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: -1;
+            }
+            #night-mode-switch input ~ label.off span:before,
+            #night-mode-switch input ~ label.off span:after {
+                box-shadow: 0 0 4px 0 orange inset;
+                border-radius: 2px;
+            }
+
+            #night-mode-switch input ~ label.off span:before {
+                transform: rotate(45deg);
+            }
+
 
             #night-mode-switch input:checked ~ label.off,
             #night-mode-switch input:not(:checked) ~ label.on { display: none; }
             @media screen and (max-width: 767px) {
                 #night-mode-switch {
-                    top: auto;
+                    position: fixed;
+                    right: 0;
                     bottom: 1.5rem;
                 }
             }
         </style>
-        <style>
+        <style id="main-styles">
             * {
                 box-sizing: border-box;
             }
@@ -192,10 +232,16 @@
                 background: var(--primary-color);
                 transition: 0.2s background, 0.1s transform;
             }
+            a.btn.invert:before,
             a.btn:hover:before {
                 transform: scaleX(1);
                 transition: 0.2s background, 0.3s transform;
             }
+            a.btn.invert:hover:before {
+                transform: scaleX(0);
+                transition: 0.2s background, 0.2s transform;
+            }
+
             a.btn:after {
                 content: '';
                 content: attr(data-text);
@@ -209,11 +255,18 @@
                 will-change: right;
                 right: 100%;
             }
+            a.btn.invert:after,
             a.btn:hover:after {
                 padding: 10px 15px;
                 transition: 0.2s color, 0.1s padding, 0.3s right;
                 right: 0;
             }
+            a.btn.invert:hover:after {
+                padding: 10px 0;
+                right: 100%;
+                transition: 0.2s color, 0.1s padding, 0.3s right;
+            }
+
             ul.phones { margin-bottom: 1rem; }
             ul.phones li {
                 vertical-align: baseline;
@@ -289,7 +342,7 @@
                 }
             }
         </style>
-        <style>
+        <style id="dialog-styles">
             dialog {
                 filter: none;
                 background: var(--modal-background);
@@ -386,6 +439,13 @@
         </style>
     </head>
     <body>
+        <header>
+            <div class="to-blur" id="night-mode-switch">
+                <input type="checkbox" id="night-mode-checkbox" />
+                <label for="night-mode-checkbox" class="on"> On </label>
+                <label for="night-mode-checkbox" class="off"> Off <span></span> </label>
+            </div>
+        </header>
         <main class="to-blur">
             <section>
                 <picture id="logo">
@@ -411,37 +471,33 @@
                         <span class="radio"><input type="radio" name="location" value="andheri" id="andheri" /><label for="andheri"><span class="circle"></span> Andheri</label></span>
                         <span class="radio"><input type="radio" name="location" value="goregaon" id="goregaon" /><label for="goregaon"><span class="circle"></span> Goregaon</label></span>
                     </form>
-                    <a href="#" class="btn" id="order-now" data-text="Order Now">Order Now</a>
+                    <a href="#" class="btn invert" id="order-now" data-text="Order Now">Order Now</a>
                     <a href="#" class="btn" id="show-menu" data-text="Menu">Menu</a>
                 </div>
             </section>
         </main>
-        <div class="to-blur" id="night-mode-switch">
-            <input type="checkbox" id="night-mode-checkbox" />
-            <label for="night-mode-checkbox" class="on"> On </label>
-            <label for="night-mode-checkbox" class="off"> Off </label>
-        </div>
+
         <dialog class="fixed wide" id="andheri-menu">
             <div class="dialog-header">
                 <h3>Andheri - Chakala</h3>
                 <span>📞 <a href="tel:+91 9702040201">9702 04 02 01</a></span>
             </div>
             <div class="dialog-content">
-                <picture class="image-zoom" >
+                <picture>
                     <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a1-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a1-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a1-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a1-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/andheri-menu/oms-a1-2020-2800.jpg">
-                    <img data-source="./assets/andheri-menu/oms-a1-2020-{size}.jpg" src="./assets/andheri-menu/oms-a1-2020-2800.jpg" alt="Om Snacks Menu Andheri 1">
+                    <img class="image-zoom" src="./assets/andheri-menu/oms-a1-2020-2800.jpg" alt="Om Snacks Menu Andheri 1">
                 </picture>
-                <picture class="image-zoom" >
+                <picture>
                     <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a2-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a2-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a2-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a2-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/andheri-menu/oms-a2-2020-2800.jpg">
-                    <img data-source="./assets/andheri-menu/oms-a2-2020-2800.jpg" src="./assets/andheri-menu/oms-a2-2020-2800.jpg" alt="Om Snacks Menu Andheri 2">
+                    <img class="image-zoom" src="./assets/andheri-menu/oms-a2-2020-2800.jpg" alt="Om Snacks Menu Andheri 2">
                 </picture>
             </div>
         </dialog>
@@ -451,24 +507,25 @@
                 <span>📞 <a href="tel:+91 8828220285">8828 22 02 85 / 86</a></span>
             </div>
             <div class="dialog-content">
-                <picture class="image-zoom" >
+                <picture>
                     <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g1-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g1-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g1-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g1-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/goregaon-menu/oms-g1-2020-2800.jpg">
-                    <img data-source="./assets/goregaon-menu/oms-g1-2020-{size}.jpg" src="./assets/goregaon-menu/oms-g1-2020-2800.jpg" alt="Om Snacks Menu Goregaon 1">
+                    <img class="image-zoom" src="./assets/goregaon-menu/oms-g1-2020-2800.jpg" alt="Om Snacks Menu Goregaon 1">
                 </picture>
-                <picture class="image-zoom" >
+                <picture>
                     <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g2-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g2-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g2-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g2-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/goregaon-menu/oms-g2-2020-2800.jpg">
-                    <img data-source="./assets/goregaon-menu/oms-g2-2020-{size}.jpg" src="./assets/goregaon-menu/oms-g2-2020-2800.jpg" alt="Om Snacks Menu Goregaon 2">
+                    <img class="image-zoom" src="./assets/goregaon-menu/oms-g2-2020-2800.jpg" alt="Om Snacks Menu Goregaon 2">
                 </picture>
             </div>
         </dialog>
+
         <script>
             (function() {
                 const root = document.querySelector('html');
@@ -546,22 +603,22 @@
 
                     const showModal = dialog.showModal;
                     dialog.showModal = function() {
-                        body.classList.add('show-dialog');
+                        body.classList.add('blur-body');
                         showModal.call(this);
                     };
 
                     const show = dialog.show;
                     dialog.show = function() {
-                        body.classList.add('show-dialog');
+                        body.classList.add('blur-body');
                         show.call(this);
                     };
 
                     dialog.addEventListener('show', function() {
-                        body.classList.add('show-dialog');
+                        body.classList.add('blur-body');
                     });
 
                     dialog.addEventListener('close', function() {
-                        body.classList.remove('show-dialog');
+                        body.classList.remove('blur-body');
                     });
 
                     const updateBackdrop = (ev) => {
@@ -582,7 +639,7 @@
                     }
                 });
                 body.addEventListener('click', function (e) {
-                    if (e.target.nodeName === 'IMG') {
+                    if (e.target.classList.contains('image-zoom') === 'IMG') {
                         const source = e.target.src || '';
                         viewer.show(source);
                     }
