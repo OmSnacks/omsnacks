@@ -639,8 +639,8 @@
                     }
                 });
                 body.addEventListener('click', function (e) {
-                    if (e.target.classList.contains('image-zoom') === 'IMG') {
-                        const source = e.target.src || '';
+                    if (e.target.classList.contains('image-zoom')) {
+                        var source = e.target.src || '';
                         viewer.show(source);
                     }
                 })
