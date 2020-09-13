@@ -11,7 +11,7 @@
         <link href="./lib/view-bigimg.css" type="text/css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Neucha&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
-        <style>
+        <style id="root-styles">
             :root, html.day {
                 --background: #fff;
                 --text: #000;
@@ -34,24 +34,39 @@
                     --primary-color: #f5b133;
                 }
             }
-
-            #night-mode-switch {
+        </style>
+        <style>
+            header {
                 position: fixed;
-                top: 1.5rem;
-                right: 1.5rem;
+                top: 0;
+                right: 0;
+                pointer-events: none;
+                z-index: 10;
+                display: flex;
+            }
+            header > * {
+                pointer-events: all;
+                margin: 1.5rem 1.5rem 0 0;
+            }
+        </style>
+        <style id="night-mode-styles">
+            #night-mode-switch {
+                position: relative;
             }
             #night-mode-switch input {
                 position: absolute;
                 opacity: 0;
             }
             #night-mode-switch input ~ label {
-                line-height: 2rem;
-                width: 2rem;
+                line-height: 1.8rem;
+                width: 1.8rem;
+                margin: .2rem .2rem 0 0 ;
                 border-radius: 100%;
                 display: inline-block;
                 font-size: 0;
                 color: rgba(0,0,0,0);
                 cursor: pointer;
+                position: relative;
             }
 
             #night-mode-switch input ~ label.on {
@@ -77,18 +92,43 @@
             #night-mode-switch input ~ label.off {
                 background: yellow;
                 box-shadow: 0 0 8px 0 yellow, 0 0 4px 0 red;
+                box-shadow: 0 0 0 2px var(--background);
             }
+
+            #night-mode-switch input ~ label.off span,
+            #night-mode-switch input ~ label.off span:before,
+            #night-mode-switch input ~ label.off span:after {
+                content: '';
+                display: block;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: -1;
+            }
+            #night-mode-switch input ~ label.off span:before,
+            #night-mode-switch input ~ label.off span:after {
+                box-shadow: 0 0 4px 0 orange inset;
+                border-radius: 2px;
+            }
+
+            #night-mode-switch input ~ label.off span:before {
+                transform: rotate(45deg);
+            }
+
 
             #night-mode-switch input:checked ~ label.off,
             #night-mode-switch input:not(:checked) ~ label.on { display: none; }
             @media screen and (max-width: 767px) {
                 #night-mode-switch {
-                    top: auto;
+                    position: fixed;
+                    right: 0;
                     bottom: 1.5rem;
                 }
             }
         </style>
-        <style>
+        <style id="main-styles">
             * {
                 box-sizing: border-box;
             }
@@ -289,7 +329,7 @@
                 }
             }
         </style>
-        <style>
+        <style id="dialog-styles">
             dialog {
                 filter: none;
                 background: var(--modal-background);
@@ -386,6 +426,13 @@
         </style>
     </head>
     <body>
+        <header>
+            <div class="to-blur" id="night-mode-switch">
+                <input type="checkbox" id="night-mode-checkbox" />
+                <label for="night-mode-checkbox" class="on"> On </label>
+                <label for="night-mode-checkbox" class="off"> Off <span></span> </label>
+            </div>
+        </header>
         <main class="to-blur">
             <section>
                 <picture id="logo">
@@ -411,16 +458,11 @@
                         <span class="radio"><input type="radio" name="location" value="andheri" id="andheri" /><label for="andheri"><span class="circle"></span> Andheri</label></span>
                         <span class="radio"><input type="radio" name="location" value="goregaon" id="goregaon" /><label for="goregaon"><span class="circle"></span> Goregaon</label></span>
                     </form>
-                    <a href="#" class="btn" id="order-now" data-text="Order Now">Order Now</a>
+                    <a href="#" class="btn invert" id="order-now" data-text="Order Now">Order Now</a>
                     <a href="#" class="btn" id="show-menu" data-text="Menu">Menu</a>
                 </div>
             </section>
         </main>
-        <div class="to-blur" id="night-mode-switch">
-            <input type="checkbox" id="night-mode-checkbox" />
-            <label for="night-mode-checkbox" class="on"> On </label>
-            <label for="night-mode-checkbox" class="off"> Off </label>
-        </div>
         <dialog class="fixed wide" id="andheri-menu">
             <div class="dialog-header">
                 <h3>Andheri - Chakala</h3>
@@ -546,22 +588,22 @@
 
                     const showModal = dialog.showModal;
                     dialog.showModal = function() {
-                        body.classList.add('show-dialog');
+                        body.classList.add('blur-body');
                         showModal.call(this);
                     };
 
                     const show = dialog.show;
                     dialog.show = function() {
-                        body.classList.add('show-dialog');
+                        body.classList.add('blur-body');
                         show.call(this);
                     };
 
                     dialog.addEventListener('show', function() {
-                        body.classList.add('show-dialog');
+                        body.classList.add('blur-body');
                     });
 
                     dialog.addEventListener('close', function() {
-                        body.classList.remove('show-dialog');
+                        body.classList.remove('blur-body');
                     });
 
                     const updateBackdrop = (ev) => {
