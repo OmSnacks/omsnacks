@@ -232,10 +232,16 @@
                 background: var(--primary-color);
                 transition: 0.2s background, 0.1s transform;
             }
+            a.btn.invert:before,
             a.btn:hover:before {
                 transform: scaleX(1);
                 transition: 0.2s background, 0.3s transform;
             }
+            a.btn.invert:hover:before {
+                transform: scaleX(0);
+                transition: 0.2s background, 0.2s transform;
+            }
+
             a.btn:after {
                 content: '';
                 content: attr(data-text);
@@ -249,11 +255,18 @@
                 will-change: right;
                 right: 100%;
             }
+            a.btn.invert:after,
             a.btn:hover:after {
                 padding: 10px 15px;
                 transition: 0.2s color, 0.1s padding, 0.3s right;
                 right: 0;
             }
+            a.btn.invert:hover:after {
+                padding: 10px 0;
+                right: 100%;
+                transition: 0.2s color, 0.1s padding, 0.3s right;
+            }
+
             ul.phones { margin-bottom: 1rem; }
             ul.phones li {
                 vertical-align: baseline;
