@@ -476,27 +476,28 @@
                 </div>
             </section>
         </main>
+
         <dialog class="fixed wide" id="andheri-menu">
             <div class="dialog-header">
                 <h3>Andheri - Chakala</h3>
                 <span>📞 <a href="tel:+91 9702040201">9702 04 02 01</a></span>
             </div>
             <div class="dialog-content">
-                <picture class="image-zoom" >
+                <picture>
                     <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a1-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a1-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a1-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a1-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/andheri-menu/oms-a1-2020-2800.jpg">
-                    <img data-source="./assets/andheri-menu/oms-a1-2020-{size}.jpg" src="./assets/andheri-menu/oms-a1-2020-2800.jpg" alt="Om Snacks Menu Andheri 1">
+                    <img class="image-zoom" src="./assets/andheri-menu/oms-a1-2020-2800.jpg" alt="Om Snacks Menu Andheri 1">
                 </picture>
-                <picture class="image-zoom" >
+                <picture>
                     <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a2-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a2-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a2-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a2-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/andheri-menu/oms-a2-2020-2800.jpg">
-                    <img data-source="./assets/andheri-menu/oms-a2-2020-2800.jpg" src="./assets/andheri-menu/oms-a2-2020-2800.jpg" alt="Om Snacks Menu Andheri 2">
+                    <img class="image-zoom" src="./assets/andheri-menu/oms-a2-2020-2800.jpg" alt="Om Snacks Menu Andheri 2">
                 </picture>
             </div>
         </dialog>
@@ -506,24 +507,25 @@
                 <span>📞 <a href="tel:+91 8828220285">8828 22 02 85 / 86</a></span>
             </div>
             <div class="dialog-content">
-                <picture class="image-zoom" >
+                <picture>
                     <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g1-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g1-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g1-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g1-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/goregaon-menu/oms-g1-2020-2800.jpg">
-                    <img data-source="./assets/goregaon-menu/oms-g1-2020-{size}.jpg" src="./assets/goregaon-menu/oms-g1-2020-2800.jpg" alt="Om Snacks Menu Goregaon 1">
+                    <img class="image-zoom" src="./assets/goregaon-menu/oms-g1-2020-2800.jpg" alt="Om Snacks Menu Goregaon 1">
                 </picture>
-                <picture class="image-zoom" >
+                <picture>
                     <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g2-2020-640.jpg">
                     <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g2-2020-800.jpg">
                     <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g2-2020-1280.jpg">
                     <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g2-2020-1920.jpg">
                     <source media="(max-width:2800px)" srcset="./assets/goregaon-menu/oms-g2-2020-2800.jpg">
-                    <img data-source="./assets/goregaon-menu/oms-g2-2020-{size}.jpg" src="./assets/goregaon-menu/oms-g2-2020-2800.jpg" alt="Om Snacks Menu Goregaon 2">
+                    <img class="image-zoom" src="./assets/goregaon-menu/oms-g2-2020-2800.jpg" alt="Om Snacks Menu Goregaon 2">
                 </picture>
             </div>
         </dialog>
+
         <script>
             (function() {
                 const root = document.querySelector('html');
@@ -637,7 +639,7 @@
                     }
                 });
                 body.addEventListener('click', function (e) {
-                    if (e.target.nodeName === 'IMG') {
+                    if (e.target.classList.contains('image-zoom') === 'IMG') {
                         const source = e.target.src || '';
                         viewer.show(source);
                     }
