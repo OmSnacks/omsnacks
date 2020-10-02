@@ -677,7 +677,7 @@
                 orderNow.onclick = function orderNowClick(e) {
                     e.preventDefault()
                     var selectedLocation = getLocation();
-                    eventTrack("button-click", 'order-now', "Order Button Click", selectedLocation, 1);
+                    eventTrack("button-click", 'order-now', "Order", selectedLocation, 1);
                     if (!selectedLocation) { return; }
 
                     window.open(mappings[selectedLocation], '_blank');
@@ -686,7 +686,7 @@
                 showMenu.onclick = function showMenuClick(e) {
                     e.preventDefault()
                     var selectedLocation = getLocation();
-                    eventTrack("button-click", 'show-menu', "Menu Button Click", selectedLocation, 1);
+                    eventTrack("button-click", 'show-menu', "Menu", selectedLocation, 1);
                     if (!selectedLocation) { return; }
                     dialogMap[selectedLocation].showModal()
                 };
