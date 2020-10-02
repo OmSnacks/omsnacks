@@ -13,13 +13,6 @@
         <link href="./lib/view-bigimg.css" type="text/css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Neucha&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
-        <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-PD9PRB4');</script>
-        <!-- End Google Tag Manager -->
         <style id="root-styles">
             :root, html.day {
                 --background: #fff;
@@ -350,6 +343,24 @@
                     max-width: 60%;
                 }
             }
+
+            .copy-text-input {
+                position: fixed;
+                top: 100vh;
+                right: 100vw;
+            }
+
+            .toast {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                border: 1px solid var(--primary-color);
+                padding: 10px;
+                max-width: (100vw - 2rem);
+                z-index: 100;
+                background: var(--background);
+                border-radius: 3px;
+            }
         </style>
         <style id="dialog-styles">
             dialog {
@@ -486,6 +497,20 @@
                     <a href="#" class="btn invert" id="order-now" data-text="Order Now">Order Now</a>
                     <a href="#" class="btn" id="show-menu" data-text="Menu">Menu</a>
                 </div>
+                <div style="margin-top: 5px;">
+                    <style>
+                        .coupon-code {
+                            font-weight: bold;
+                            border: 1px solid;
+                            border-radius: 3px;
+                            display: inline-block;
+                            padding: 3px 5px;
+                            color: var(--primary-color);
+                            cursor: pointer;
+                        }
+                    </style>
+                    Order now and to avail the web-launch offer.<br />Use the coupon code <span class="coupon-code">SPIDERMAN</span> for 15% off on online delivery.
+                </div>
             </section>
         </main>
 
@@ -550,6 +575,7 @@
                 //     nightMode = media('(prefers-color-scheme: dark)');
                 //     nightModeSwitch.checked = nightMode.matches;
                 // }
+
 
 
                 try {
@@ -655,7 +681,31 @@
                         var source = e.target.src || '';
                         viewer.show(source);
                     }
-                })
+
+                    if (e.target.classList.contains('coupon-code')) {
+                        triggerCopyText(e);
+                    }
+                });
+
+                function triggerCopyText(e) {
+                    var copyText = e.target.innerText.trim();
+                    const text = document.createElement('input');
+                    text.type = "text";
+                    text.classList.add('copy-text-input');
+                    body.appendChild(text);
+                    text.value = copyText;
+                    /* Select the text field */
+                    text.select();
+                    text.setSelectionRange(0, 99999); /*For mobile devices*/
+
+                    /* Copy the text inside the text field */
+                    document.execCommand("copy");
+                    setTimeout(function() {
+                        // alert(document.execCommand("paste"))
+                        body.removeChild(text);
+                        showToast('Coupon code copied');
+                    }, 100)
+                }
 
                 function getLocation() {
                     let selectedValue;
@@ -701,6 +751,20 @@
                         'event_label': label,
                         'value': suggestedValue || .1
                     });
+                }
+
+                function removeToast(toast) {
+                    toast.onclick = null;
+                    body.removeChild(toast);
+                }
+                function showToast(message) {
+                    const toast = document.createElement("div");
+                    toast.classList.add('toast');
+                    toast.innerText = message;
+                    toast.onclick = function() { removeToast(toast); }
+                    body.appendChild(toast);
+
+                    setTimeout(() => { toast.onclick() }, 3000);
                 }
             })();
         </script>
