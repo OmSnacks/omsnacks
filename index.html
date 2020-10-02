@@ -13,6 +13,13 @@
         <link href="./lib/view-bigimg.css" type="text/css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Neucha&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
         <link rel="icon" href="favicon.png" sizes="64x64" type="image/png">
+        <!-- Google Tag Manager -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-PD9PRB4');</script>
+        <!-- End Google Tag Manager -->
         <style id="root-styles">
             :root, html.day {
                 --background: #fff;
@@ -441,6 +448,9 @@
         </style>
     </head>
     <body>
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PD9PRB4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
         <header>
             <div class="to-blur" id="night-mode-switch">
                 <input type="checkbox" id="night-mode-checkbox" />
@@ -664,7 +674,8 @@
                     return selectedValue;
                 }
                 
-                orderNow.onclick = function orderNowClick() {
+                orderNow.onclick = function orderNowClick(e) {
+                    e.preventDefault()
                     var selectedLocation = getLocation();
                     eventTrack("button-click", 'order-now', "Order Button Click", selectedLocation);
                     if (!selectedLocation) { return; }
@@ -672,7 +683,8 @@
                     window.open(mappings[selectedLocation], '_blank');
                 };
                 
-                showMenu.onclick = function showMenuClick() {
+                showMenu.onclick = function showMenuClick(e) {
+                    e.preventDefault()
                     var selectedLocation = getLocation();
                     eventTrack("button-click", 'show-menu', "Menu Button Click", selectedLocation);
                     if (!selectedLocation) { return; }
@@ -680,8 +692,13 @@
                 };
                 
                 function eventTrack(category, action, label, value) {
-                    if (!ga) return;
-                    ga("send", "event", category, action, label, value || "NO VALUE");
+                    if (!gtag) return;
+                    gtag(
+                        'event', action, {
+                        'event_category': category,
+                        'event_label': label,
+                        'value': value || "NO VALUE"
+                    });
                 }
             })();
         </script>
