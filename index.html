@@ -640,7 +640,7 @@
                         body.classList.remove('fade-dialog');
                     }
                 });
-                body.addEventListener('click', function (e) {
+                body.addEventListener('click', function bodyClick(e) {
                     if (e.target.classList.contains('image-zoom')) {
                         var source = e.target.src || '';
                         viewer.show(source);
@@ -664,20 +664,25 @@
                     return selectedValue;
                 }
                 
-                orderNow.onclick = function() {
+                orderNow.onclick = function orderNowClick() {
                     var selectedLocation = getLocation();
-                    console.log(selectedLocation);
+                    eventTrack("button-click", 'order-now', "Order Button Click", selectedLocation);
                     if (!selectedLocation) { return; }
 
                     window.open(mappings[selectedLocation], '_blank');
                 };
                 
-                showMenu.onclick = function() {
+                showMenu.onclick = function showMenuClick() {
                     var selectedLocation = getLocation();
+                    eventTrack("button-click", 'show-menu', "Menu Button Click", selectedLocation);
                     if (!selectedLocation) { return; }
-                    
                     dialogMap[selectedLocation].showModal()
-                };                
+                };
+                
+                function eventTrack(category, action, label, value) {
+                    if (!ga) return;
+                    ga("send", "event", category, action, label, value || "NO VALUE");
+                }
             })();
         </script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
