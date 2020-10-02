@@ -684,6 +684,7 @@
 
                     if (e.target.classList.contains('coupon-code')) {
                         triggerCopyText(e);
+                        eventTrack("coupon-code", 'copy-coupon-code', e.target.innerText.trim(), selectedLocation, 1);
                     }
                 });
 
