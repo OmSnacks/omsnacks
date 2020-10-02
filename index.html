@@ -677,7 +677,7 @@
                 orderNow.onclick = function orderNowClick(e) {
                     e.preventDefault()
                     var selectedLocation = getLocation();
-                    eventTrack("button-click", 'order-now', "Order Button Click", selectedLocation);
+                    eventTrack("button-click", 'order-now', "Order Button Click", selectedLocation, 1);
                     if (!selectedLocation) { return; }
 
                     window.open(mappings[selectedLocation], '_blank');
@@ -686,18 +686,20 @@
                 showMenu.onclick = function showMenuClick(e) {
                     e.preventDefault()
                     var selectedLocation = getLocation();
-                    eventTrack("button-click", 'show-menu', "Menu Button Click", selectedLocation);
+                    eventTrack("button-click", 'show-menu', "Menu Button Click", selectedLocation, 1);
                     if (!selectedLocation) { return; }
                     dialogMap[selectedLocation].showModal()
                 };
                 
-                function eventTrack(category, action, label, value) {
+                function eventTrack(category, action, label, value, suggestedValue) {
                     if (!gtag) return;
+                    action = [action]
+                    if (value) action.push(value);
                     gtag(
-                        'event', action, {
+                        'event', action.join('-'), {
                         'event_category': category,
                         'event_label': label,
-                        'value': value || "NO VALUE"
+                        'value': suggestedValue || .1
                     });
                 }
             })();
@@ -708,7 +710,6 @@
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
             gtag('config', 'UA-179480665-1');
         </script>
     </body>
