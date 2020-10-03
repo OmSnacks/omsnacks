@@ -684,17 +684,19 @@
 
                     if (e.target.classList.contains('coupon-code')) {
                         triggerCopyText(e);
-                        eventTrack("coupon-code", 'copy-coupon-code', e.target.innerText.trim(), selectedLocation, 1);
+                        eventTrack("coupon-code", 'copy-coupon-code', e.target.innerText.trim(), "", 1);
                     }
                 });
 
                 function triggerCopyText(e) {
                     var copyText = e.target.innerText.trim();
                     const text = document.createElement('input');
-                    text.type = "text";
                     text.classList.add('copy-text-input');
-                    body.appendChild(text);
+                    text.type = "text";
+                    text.readOnly = true;
                     text.value = copyText;
+
+                    body.appendChild(text);
                     /* Select the text field */
                     text.select();
                     text.setSelectionRange(0, 99999); /*For mobile devices*/
