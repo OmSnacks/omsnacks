@@ -216,12 +216,14 @@
             font-size: 1.2em;
         }
 
-        main {
+        main .body{
             padding: 25px 25px calc(25px + 1.8rem);
             max-width: 1280px;
             min-height: 100vh;
             margin: 0 auto;
             display: flex;
+            flex-direction: column;
+            align-items: stretch;
         }
 
         #logo {
@@ -379,17 +381,17 @@
         }
 
         @media screen and (min-width: 768px) {
-            main {
+            main .body {
                 padding: 40px;
             }
 
-            section {
+            main .body aside {
                 margin: auto 0;
             }
         }
 
         @media screen and (min-width: 1024px) {
-            section {
+            main .body aside {
                 max-width: 60%;
             }
         }
@@ -541,55 +543,94 @@
         </div>
     </header>
     <main class="to-blur">
-        <section>
-            <picture id="logo">
-                <source media="(max-width:640px)" srcset="./assets/logo-160.png">
-                <source media="(min-width:641px)" srcset="./assets/logo-320.png">
-                <img src="./assets/logo-320.png" alt="Om Snacks">
-            </picture>
-            <h1 style="margin: 0.9em 0 0.67em;">Pizza, Pasta, Sandwich, Burger, Pani Puri, Party Orders</h1>
-            <p>
-                Destination for the biggest sandwich in Mumbai.
-                <br />Treat yourself with the cheesy goodness of our <span class="text-2">sandwiches, pizzas, pizza
-                    shots, pasta and frankies/wraps</span>.
-                <br />Try our special <span class="text-2">desi chaat</span> at Goregaon and, <span class="text-2">yummy
-                    maggi</span>, <span class="text-2">scrumptious burgers</span>, and the <span class="text-2">utterly
-                    butterly pav bhaji</span> at Andheri.
-                <!-- <br />We cater to all kinds of party orders. Feel free to write to us at party @ omsnacks . in -->
-            </p>
-            <p>Jain options also available 😇</p>
-            <ul class="phones">
-                <li> Andheri: <a href="tel:+91 9702040201">9702 04 02 01</a></li>
-                <li> Goregaon: <a href="tel:+91 8828220285">8828 22 02 85 / 86</a> </li>
-            </ul>
-            <div>
-                <form>
-                    <p id="select-location">Please select a location to continue</p>
-                    <span class="radio"><input type="radio" name="location" value="andheri" id="andheri" /><label
-                            for="andheri"><span class="circle"></span> Andheri</label></span>
-                    <span class="radio"><input type="radio" name="location" value="goregaon" id="goregaon" /><label
-                            for="goregaon"><span class="circle"></span> Goregaon</label></span>
-                </form>
-                <a href="#" class="btn invert order-now" data-ref="order-now" data-text="Order Now">Order Now</a>
-                <a href="#" class="btn show-menu" data-text="Menu">Menu</a>
-            </div>
-            <!-- -->
-            <div style="margin-top: 5px;">
-                <style>
-                    .coupon-code {
-                        font-weight: bold;
-                        border: 1px solid;
-                        border-radius: 3px;
-                        display: inline-block;
-                        padding: 3px 5px;
-                        color: var(--primary-color);
-                        cursor: pointer;
-                    }
-                </style>
-                Order now to avail the winter discount offers.<br />Use the coupon code <span
-                    class="coupon-code">JUSTCHILL</span> for 15% off on online delivery.
-            </div>
-            <!-- -->
+        <section class="slider">
+            <om-slider data-effect="fade">
+                <om-slide slot="slide">
+                    <picture>
+                        <source media="(max-width:640px)" srcset="./assets/banner/banner1.png">
+                        <source media="(max-width:2800px)" srcset="./assets/banner/banner1.png">
+                        <img class="image-zoom" src="./assets/banner/banner1.png" alt="Banner 1">
+                    </picture>
+                    <div>
+                        1
+                        <p>Blah</p>
+                    </div>
+                </om-slide>
+                <om-slide slot="slide">
+                    <picture>
+                        <source media="(max-width:640px)" srcset="./assets/banner/banner2.png">
+                        <source media="(max-width:2800px)" srcset="./assets/banner/banner2.png">
+                        <img class="image-zoom" src="./assets/banner/banner2.png" alt="Banner 2">
+                    </picture>
+                    <div>
+                        2
+                        <p>Blah</p>
+                    </div>
+                </om-slide>
+                <om-slide slot="slide">
+                    <picture>
+                        <source media="(max-width:640px)" srcset="./assets/banner/banner3.png">
+                        <source media="(max-width:2800px)" srcset="./assets/banner/banner3.png">
+                        <img class="image-zoom" src="./assets/banner/banner3.png" alt="Banner 3">
+                    </picture>
+                    <div>
+                        3
+                        <p>Blah</p>
+                    </div>
+                </om-slide>
+            </om-slider>
+        </section>
+        <section class="body">
+            <aside>
+                <picture id="logo">
+                    <source media="(max-width:640px)" srcset="./assets/logo-160.png">
+                    <source media="(min-width:641px)" srcset="./assets/logo-320.png">
+                    <img src="./assets/logo-320.png" alt="Om Snacks">
+                </picture>
+                <h1 style="margin: 0.9em 0 0.67em;">Pizza, Pasta, Sandwich, Burger, Pani Puri, Party Orders</h1>
+                <p>
+                    Destination for the biggest sandwich in Mumbai.
+                    <br />Treat yourself with the cheesy goodness of our <span class="text-2">sandwiches, pizzas, pizza
+                        shots, pasta and frankies/wraps</span>.
+                    <br />Try our special <span class="text-2">desi chaat</span> at Goregaon and, <span class="text-2">yummy
+                        maggi</span>, <span class="text-2">scrumptious burgers</span>, and the <span class="text-2">utterly
+                        butterly pav bhaji</span> at Andheri.
+                    <!-- <br />We cater to all kinds of party orders. Feel free to write to us at party @ omsnacks . in -->
+                </p>
+                <p>Jain options also available 😇</p>
+                <ul class="phones">
+                    <li> Andheri: <a href="tel:+91 9702040201">9702 04 02 01</a></li>
+                    <li> Goregaon: <a href="tel:+91 8828220285">8828 22 02 85 / 86</a> </li>
+                </ul>
+                <div>
+                    <form>
+                        <p id="select-location">Please select a location to continue</p>
+                        <span class="radio"><input type="radio" name="location" value="andheri" id="andheri" /><label
+                                for="andheri"><span class="circle"></span> Andheri</label></span>
+                        <span class="radio"><input type="radio" name="location" value="goregaon" id="goregaon" /><label
+                                for="goregaon"><span class="circle"></span> Goregaon</label></span>
+                    </form>
+                    <a href="#" class="btn invert order-now" data-ref="order-now" data-text="Order Now">Order Now</a>
+                    <a href="#" class="btn show-menu" data-text="Menu">Menu</a>
+                </div>
+                <!-- -->
+                <div style="margin-top: 5px;">
+                    <style>
+                        .coupon-code {
+                            font-weight: bold;
+                            border: 1px solid;
+                            border-radius: 3px;
+                            display: inline-block;
+                            padding: 3px 5px;
+                            color: var(--primary-color);
+                            cursor: pointer;
+                        }
+                    </style>
+                    Order now to avail the winter discount offers.<br />Use the coupon code <span
+                        class="coupon-code">JUSTCHILL</span> for 15% off on online delivery.
+                </div>
+                <!-- -->
+            </aside>
         </section>
     </main>
 
@@ -682,6 +723,8 @@
 
         })();
     </script>
+    <script src='./web-components/om-slide.js'></script>
+    <script src='./web-components/om-slider.js'></script>
     <script src="./lib/dialog-polyfill.js"></script>
     <script src="./lib/view-bigimg.js"></script>
     <script>
@@ -862,6 +905,7 @@
                 toast.onclick = null;
                 body.removeChild(toast);
             }
+
             function showToast(message) {
                 const toast = document.createElement("div");
                 toast.classList.add('toast');
@@ -875,6 +919,7 @@
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179480665-1"></script>
+
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
