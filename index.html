@@ -754,7 +754,10 @@
 
 
                 document.addEventListener("click", function(e) {
-                    if (e.target.attributes.download !== "") { return; }
+                    var download = e.target.attributes.getNamedItem("download");
+                    if (!download || typeof download.value !== "string") {
+                        return;
+                    }
 
                     var selectedLocation = getLocation();
                     eventTrack("button-click", e.target.dataset.ref || 'download', "Download", selectedLocation, 1);
