@@ -381,6 +381,7 @@
                 padding: 0;
                 border: 1px solid #555;
                 border-radius: 5px;
+                overflow: visible;
             }
             dialog::backdrop {
                 background: rgba(0,0,0,0.7);
@@ -403,7 +404,7 @@
                 left: 2rem;
                 right: 2rem;
                 opacity: 0;
-                max-height: 90vh;
+                height: 90vh;
                 transition: 0.2s all;
                 transform: scale(0.7) translate(0%, -30%) !important;
             }
@@ -448,6 +449,11 @@
             dialog .dialog-content {
                 flex: 1;
                 overflow: auto;
+            }
+            dialog .dialog-footer {
+                flex-shrink: 0;
+                padding: 1em 0;
+                margin-bottom: -1em;
             }
             picture, img {
                 max-width: 100%;
@@ -494,8 +500,8 @@
                         <span class="radio"><input type="radio" name="location" value="andheri" id="andheri" /><label for="andheri"><span class="circle"></span> Andheri</label></span>
                         <span class="radio"><input type="radio" name="location" value="goregaon" id="goregaon" /><label for="goregaon"><span class="circle"></span> Goregaon</label></span>
                     </form>
-                    <a href="#" class="btn invert" id="order-now" data-text="Order Now">Order Now</a>
-                    <a href="#" class="btn" id="show-menu" data-text="Menu">Menu</a>
+                    <a href="#" class="btn invert order-now"  data-ref="order-now" data-text="Order Now">Order Now</a>
+                    <a href="#" class="btn show-menu" data-text="Menu">Menu</a>
                 </div>
                 <div style="margin-top: 5px;">
                     <style>
@@ -521,21 +527,23 @@
             </div>
             <div class="dialog-content">
                 <picture>
-                    <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a1-2020-640.jpg">
-                    <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a1-2020-800.jpg">
-                    <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a1-2020-1280.jpg">
-                    <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a1-2020-1920.jpg">
-                    <source media="(max-width:2800px)" srcset="./assets/andheri-menu/oms-a1-2020-2800.jpg">
-                    <img class="image-zoom" src="./assets/andheri-menu/oms-a1-2020-2800.jpg" alt="Om Snacks Menu Andheri 1">
+                    <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a1-2022-640.webp">
+                    <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a1-2022-800.webp">
+                    <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a1-2022-1280.webp">
+                    <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a1-2022-1920.webp">
+                    <img class="image-zoom" src="./assets/andheri-menu/oms-a1-2022.jpg" alt="Om Snacks Menu Andheri 1">
                 </picture>
                 <picture>
-                    <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a2-2020-640.jpg">
-                    <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a2-2020-800.jpg">
-                    <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a2-2020-1280.jpg">
-                    <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a2-2020-1920.jpg">
-                    <source media="(max-width:2800px)" srcset="./assets/andheri-menu/oms-a2-2020-2800.jpg">
-                    <img class="image-zoom" src="./assets/andheri-menu/oms-a2-2020-2800.jpg" alt="Om Snacks Menu Andheri 2">
+                    <source media="(max-width:640px)" srcset="./assets/andheri-menu/oms-a2-2022-640.webp">
+                    <source media="(max-width:800px)" srcset="./assets/andheri-menu/oms-a2-2022-800.webp">
+                    <source media="(max-width:1280px)" srcset="./assets/andheri-menu/oms-a2-2022-1280.webp">
+                    <source media="(max-width:1920px)" srcset="./assets/andheri-menu/oms-a2-2022-1920.webp">
+                    <img class="image-zoom" src="./assets/andheri-menu/oms-a2-2022.jpg" alt="Om Snacks Menu Andheri 2">
                 </picture>
+            </div>
+            <div class="dialog-footer">
+                <a href="./assets/andheri-menu/oms-andheri-2022.pdf" class="btn" data-text="Download Menu" download>Download Menu</a>
+                <a href="#" class="btn invert order-now" data-ref="order-now-popup" data-text="Order Now">Order Now</a>
             </div>
         </dialog>
         <dialog class="fixed wide" id="goregaon-menu">
@@ -544,22 +552,26 @@
                 <span>📞 <a href="tel:+91 8828220285">8828 22 02 85 / 86</a></span>
             </div>
             <div class="dialog-content">
-                <picture>
-                    <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g1-2020-640.jpg">
-                    <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g1-2020-800.jpg">
-                    <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g1-2020-1280.jpg">
-                    <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g1-2020-1920.jpg">
-                    <source media="(max-width:2800px)" srcset="./assets/goregaon-menu/oms-g1-2020-2800.jpg">
-                    <img class="image-zoom" src="./assets/goregaon-menu/oms-g1-2020-2800.jpg" alt="Om Snacks Menu Goregaon 1">
+                <picture class="menu">
+                    <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g1-2022-640.webp">
+                    <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g1-2022-800.webp">
+                    <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g1-2022-1280.webp">
+                    <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g1-2022-1920.webp">
+                    <img class="image-zoom" src="./assets/goregaon-menu/oms-g1-2022.jpg"
+                        alt="Om Snacks Menu Goregaon 1">
                 </picture>
-                <picture>
-                    <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g2-2020-640.jpg">
-                    <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g2-2020-800.jpg">
-                    <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g2-2020-1280.jpg">
-                    <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g2-2020-1920.jpg">
-                    <source media="(max-width:2800px)" srcset="./assets/goregaon-menu/oms-g2-2020-2800.jpg">
-                    <img class="image-zoom" src="./assets/goregaon-menu/oms-g2-2020-2800.jpg" alt="Om Snacks Menu Goregaon 2">
+                <picture class="menu">
+                    <source media="(max-width:640px)" srcset="./assets/goregaon-menu/oms-g2-2022-640.webp">
+                    <source media="(max-width:800px)" srcset="./assets/goregaon-menu/oms-g2-2022-800.webp">
+                    <source media="(max-width:1280px)" srcset="./assets/goregaon-menu/oms-g2-2022-1280.webp">
+                    <source media="(max-width:1920px)" srcset="./assets/goregaon-menu/oms-g2-2022-1920.webp">
+                    <img class="image-zoom" src="./assets/goregaon-menu/oms-g2-2022.jpg"
+                        alt="Om Snacks Menu Goregaon 2">
                 </picture>
+            </div>
+            <div class="dialog-footer">
+                <a href="./assets/andheri-menu/oms-andheri-2022.pdf" class="btn" data-text="Download Menu" download>Download Menu</a>
+                <a href="#" class="btn invert order-now" data-ref="order-now-popup" data-text="Order Now">Order Now</a>
             </div>
         </dialog>
 
@@ -608,10 +620,8 @@
                 };
 
                 var dialogMap = {};
-                
+
                 const body = document.querySelector('body');
-                const showMenu = document.querySelector('#show-menu');
-                const orderNow = document.querySelector('#order-now');
                 const inputs = document.querySelectorAll('[name="location"]');
                 const selectLocationError = document.querySelector('#select-location');
                 const dialogs = document.querySelectorAll('dialog');
@@ -727,22 +737,28 @@
                     return selectedValue;
                 }
                 
-                orderNow.onclick = function orderNowClick(e) {
+
+                
+                document.addEventListener("click", function(e) {
+                    if (!e.target.classList.contains("order-now")) { return; }
+
                     e.preventDefault()
                     var selectedLocation = getLocation();
-                    eventTrack("button-click", 'order-now', "Order", selectedLocation, 1);
+                    eventTrack("button-click", e.target.dataset.ref || 'order-now', "Order", selectedLocation, 1);
                     if (!selectedLocation) { return; }
-
+    
                     window.open(mappings[selectedLocation], '_blank');
-                };
+                });
                 
-                showMenu.onclick = function showMenuClick(e) {
+                document.addEventListener("click", function(e) {
+                    if (!e.target.classList.contains("show-menu")) { return; }
+
                     e.preventDefault()
                     var selectedLocation = getLocation();
                     eventTrack("button-click", 'show-menu', "Menu", selectedLocation, 1);
                     if (!selectedLocation) { return; }
                     dialogMap[selectedLocation].showModal()
-                };
+                });
                 
                 function eventTrack(category, action, label, value, suggestedValue) {
                     if (!gtag) return;
