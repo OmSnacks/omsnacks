@@ -750,6 +750,19 @@
     
                     window.open(mappings[selectedLocation], '_blank');
                 });
+
+
+
+                document.addEventListener("click", function(e) {
+                    if (!e.target.attributes.download === undefined) { return; }
+
+                    var selectedLocation = getLocation();
+                    eventTrack("button-click", e.target.dataset.ref || 'download', "Download", selectedLocation, 1);
+                    if (!selectedLocation) { return; }
+    
+                    window.open(mappings[selectedLocation], '_blank');
+                });
+                
                 
                 document.addEventListener("click", function(e) {
                     if (!e.target.classList.contains("show-menu")) { return; }
