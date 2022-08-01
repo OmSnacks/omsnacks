@@ -754,7 +754,7 @@
 
 
                 document.addEventListener("click", function(e) {
-                    if (e.target.attributes.download !== undefined) { return; }
+                    if (e.target.attributes.download !== "") { return; }
 
                     var selectedLocation = getLocation();
                     eventTrack("button-click", e.target.dataset.ref || 'download', "Download", selectedLocation, 1);
