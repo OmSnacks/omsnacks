@@ -762,8 +762,6 @@
                     var selectedLocation = getLocation();
                     eventTrack("button-click", e.target.dataset.ref || 'download', "Download", selectedLocation, 1);
                     if (!selectedLocation) { return; }
-    
-                    window.open(mappings[selectedLocation], '_blank');
                 });
                 
                 
